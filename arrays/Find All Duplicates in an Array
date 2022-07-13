@@ -12,3 +12,26 @@ class Solution {
         return list;
     }
 }
+-----------------------------------------------------------------------
+Approach:
+
+Traverse the array from 0 to n
+For each value find idx (idx = nums[i] -1 )
+Check value at this idx if it is +ve make is -ve
+Else if it is -ve , this means we are checking this idx again. So we got a duplicate value at nums[i]
+Add this to result array
+Return the array.
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        
+        List<Integer> result = new ArrayList<>();
+        
+        for(int i=0;i<nums.length;i++){
+            int idx = Math.abs(nums[i]) -1;
+            
+            if(nums[idx] > 0) nums[idx] *= -1;
+            else result.add(Math.abs(nums[i]));
+        }
+        return result;       
+    }
+}
