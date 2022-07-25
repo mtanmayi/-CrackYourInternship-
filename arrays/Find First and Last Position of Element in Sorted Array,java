@@ -1,0 +1,96 @@
+lass Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int res[] = {-1, -1};
+        
+		/*
+		  Everything is similar to Binary Search problem except for minor changes.
+		*/
+		
+        int start = 0, end = nums.length - 1;
+        
+        /*
+            For start index
+            - If nums[mid] == target, check if the previous element is equal to target
+              and if it is, check for start index in the left side by setting
+              end = mid - 1 (similar to binary search)
+        */
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            
+            if (nums[mid] == target) {
+                if (mid > 0 && nums[mid - 1] == target) {
+                    end = mid - 1;
+                } else {
+                    res[0] = mid;
+                    break;
+                }
+            } else if (target > nums[mid])
+                start = mid + 1;
+            else
+                end = mid - 1;
+        }
+        
+        start = 0;
+        end = nums.length - 1;
+        
+        /*
+            For end index
+            - If nums[mid] == target, check if the next element is equal to target
+              and if it is, check for end index in the right side by setting
+              start = mid + 1 (similar to binary search)
+        */
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            
+            if (nums[mid] == target) {
+                if (mid < (nums.length - 1) && nums[mid + 1] == target) {
+                    start = mid + 1;
+                } else {
+                    res[1] = mid;
+                    break;
+                }
+            } else if (target > nums[mid])
+                start = mid + 1;
+            else
+                end = mid - 1;
+        }
+        
+        return res;
+    }
+}
+---------------------------------------------------------------------------------
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int n=nums.length;
+        int arr[]=new int[]{-1,-1};
+        int i;
+        if(n==1&&nums[0]==target)
+        {
+            arr[0]=0;
+            arr[1]=0;
+            return arr;
+        }
+       for(i=0;i<n;i++)
+       {
+           if(nums[i]==target)
+           {
+               arr[0]=i;
+               break;
+           }
+       }
+        for(int k=i;k<=n-1;k++)
+        {
+            if(nums[n-1]==target)
+            {
+                arr[1]=n-1;
+                break;
+            }
+            if((nums[k+1]!=nums[k])||(k==n-1&&nums[k]==target))
+            {
+                arr[1]=k;
+                break;
+            }
+        }
+        return arr;
+    }
+}
